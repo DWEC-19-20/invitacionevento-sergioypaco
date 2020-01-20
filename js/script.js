@@ -1,5 +1,7 @@
 window.addEventListener("load", inicio);
 
+var ocultos = false;
+
 function inicio(){
     
     document.getElementById("invitar").addEventListener("click", addInv);
@@ -77,6 +79,8 @@ function addInv(e){
     borrarB.addEventListener("click", borrar);
     nuevo.appendChild(borrarB);
 
+    if(ocultos) nuevo.style.display = 'none';
+    
     document.getElementById("invitedList").appendChild(nuevo);
 
 }
@@ -93,6 +97,8 @@ function ocultar(){
             
             if(!x[0].checked) li[c].style.display = 'none';
             
+            ocultos = true;
+            
         }
         
     }
@@ -102,6 +108,8 @@ function ocultar(){
         for(let c = 0 ; c < li.length ; c++){
             
             li[c].style.display = 'block';
+            
+            ocultos = false;
             
         }
         
