@@ -138,6 +138,11 @@ div > label {
   color: rgba(88, 183, 205, 1);
 }
 
+/* Filtrar ocultos */
+#filtro{
+    display: flex;
+    justify-content: flex-end;
+}
 /* ================================= 
   Media Queries
 ==================================== */
