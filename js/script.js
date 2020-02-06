@@ -1,6 +1,7 @@
 window.addEventListener("load", inicio);
 
 var ocultos = false;
+var editando = false;
 
 function inicio(){
     
@@ -33,56 +34,89 @@ function addInv(e){
  
     var invitado = document.getElementById("invitado");
 
-    if(invitado.value == ""){
-  
-        invitado.placeholder = "No puede estar vacío.";
+    if(comprobarValido(invitado.value)){
+        
+        var nuevo = document.createElement("li");
+        var nombre = document.createElement("span");
+    
+        nombre.innerHTML = document.getElementById("invitado").value;
+        nuevo.appendChild(nombre);
+        invitado.value = "";
+
+        var confirmacion = document.createElement("label");
+        confirmacion.innerHTML = "Confirmed";
+        var check = document.createElement("input");
+        check.setAttribute("type", "checkbox");
+        check.addEventListener("click", confirmado);
+        confirmacion.appendChild(check);
+        nuevo.appendChild(confirmacion);
+
+        var editarB = document.createElement("button");
+        editarB.innerHTML = "edit";
+        editarB.setAttribute("class", "editar");
+        editarB.addEventListener("click", editar);
+        nuevo.appendChild(editarB);
+
+        var borrarB = document.createElement("button");
+        borrarB.innerHTML = "remove";
+        borrarB.setAttribute("class", "borrar");
+        borrarB.addEventListener("click", borrar);
+        nuevo.appendChild(borrarB);
+
+        if(ocultos) nuevo.style.display = 'none';
+    
+        document.getElementById("invitedList").appendChild(nuevo);
+        invitado.placeholder = "Invitar a alguien";
+    }
+}
+
+function comprobarValido(invitado){
+
+    if(invitado == ""){
+        
+        document.getElementById("error").innerHTML = "No puede estar vacío.";
+        document.getElementById("error").style.display = 'block';
         return false;
   
     }
 
+    var cont = 0;
+    
     for(let c = 0 ; c < document.getElementsByTagName("span").length ; c++){
 
-        if(document.getElementsByTagName("span")[c].innerHTML == invitado.value){
+        if(document.getElementsByTagName("span")[c].innerHTML == invitado){
 
-            invitado.value = "";
-            invitado.placeholder = "Invitado repetido.";
-            return false;
-
+            cont++;
+            
         }
 
     }
-
-    var nuevo = document.createElement("li");
-    var nombre = document.createElement("span");
     
-    nombre.innerHTML = document.getElementById("invitado").value;
-    nuevo.appendChild(nombre);
-    invitado.value = "";
-
-    var confirmacion = document.createElement("label");
-    confirmacion.innerHTML = "Confirmed";
-    var check = document.createElement("input");
-    check.setAttribute("type", "checkbox");
-    check.addEventListener("click", confirmado);
-    confirmacion.appendChild(check);
-    nuevo.appendChild(confirmacion);
-
-    var editarB = document.createElement("button");
-    editarB.innerHTML = "edit";
-    editarB.setAttribute("class", "editar");
-    editarB.addEventListener("click", editar);
-    nuevo.appendChild(editarB);
-
-    var borrarB = document.createElement("button");
-    borrarB.innerHTML = "remove";
-    borrarB.setAttribute("class", "borrar");
-    borrarB.addEventListener("click", borrar);
-    nuevo.appendChild(borrarB);
-
-    if(ocultos) nuevo.style.display = 'none';
+    if(editando){
+        
+        if(cont > 1) {
+        
+            document.getElementById("error").innerHTML = "Invitado repetido.";
+            document.getElementById("error").style.display = 'block';
+            return false;
+            
+        }
+        
+    }
     
-    document.getElementById("invitedList").appendChild(nuevo);
-
+    else if(cont > 0){
+    
+        document.getElementById("error").innerHTML = "Invitado repetido.";
+        document.getElementById("error").style.display = 'block';
+        return false;
+        
+    }
+    
+    document.getElementById("error").innerHTML = "";
+    document.getElementById("error").style.display = 'none';
+    
+    return true;
+    
 }
 
 function ocultar(){
@@ -122,16 +156,34 @@ function editar(e){
     var boton = e.target;
     var elemento = boton.parentElement.getElementsByTagName("span")[0];
 
-    elemento.focus();
+    editando = true;
+    
     elemento.setAttribute("contentEditable", true);
+    elemento.focus();   
     
-    elemento.addEventListener("blur", function(){
+    boton.innerHTML = "HAZ CLICK EN CUALQUIER PARTE PARA GUARDAR";
     
-        if(elemento.innerHTML != "") elemento.setAttribute("contentEditable", false);
+    elemento.addEventListener("blur", a);
+}
 
-        else elemento.focus();
+function a(e) {
+    var boton = e.target;
+    quitarBlur(boton);
+    boton.removeEventListener("blur", a);
+}
 
-    });
+function quitarBlur(boton){
+    
+    if(comprobarValido(boton.innerHTML)) {
+        
+        boton.setAttribute("contentEditable", false);
+        boton.parentElement.getElementsByClassName('editar')[0].innerHTML = "edit";
+        editando = false;
+
+    }
+
+    else elemento.focus();
+    
 }
 
 function borrar(e){
