@@ -179,17 +179,17 @@ function editar(e){
 }
 
 function a(e) {
-    var boton = e.target;
-    quitarBlur(boton);
-    boton.removeEventListener("blur", a);
+    var elemento = e.target;
+    quitarBlur(elemento);
+    elemento.removeEventListener("blur", a);
 }
 
-function quitarBlur(boton){
+function quitarBlur(elemento){
     
-    if(comprobarValido(boton.innerHTML)) {
+    if(comprobarValido(elemento.innerHTML)) {
         
-        boton.setAttribute("contentEditable", false);
-        boton.parentElement.getElementsByClassName('editar')[0].innerHTML = "edit";
+        elemento.setAttribute("contentEditable", false);
+        elemento.parentElement.getElementsByClassName('editar')[0].innerHTML = "edit";
         editando = false;
 
     }
