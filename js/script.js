@@ -1,7 +1,11 @@
 window.addEventListener("load", inicio);
 
+// Variables globales
+
 var ocultos = false;
 var editando = false;
+
+//  Cargar eventos en la página si existen
 
 function inicio(){
     
@@ -27,6 +31,8 @@ function inicio(){
     }
     
 }
+
+// Añadir invitado
 
 function addInv(e){
 
@@ -69,6 +75,8 @@ function addInv(e){
         invitado.placeholder = "Invitar a alguien";
     }
 }
+
+// Comprobar si el nombre del invitado es válido
 
 function comprobarValido(invitado){
 
@@ -119,6 +127,8 @@ function comprobarValido(invitado){
     
 }
 
+// Filtrar invitados confirmados
+
 function ocultar(){
     
     var li = document.getElementsByTagName("li");  
@@ -150,6 +160,8 @@ function ocultar(){
     }
     
 }
+
+// Editar invitado existente
 
 function editar(e){
     
@@ -186,6 +198,8 @@ function quitarBlur(boton){
     
 }
 
+// Borrar invitado
+
 function borrar(e){
     
     var boton = e.target;
@@ -199,6 +213,8 @@ function borrar(e){
     }
     
 }
+
+// Comprobar si el invitado ha confirmado
 
 function confirmado(e){
 
