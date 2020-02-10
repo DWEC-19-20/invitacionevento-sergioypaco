@@ -207,8 +207,7 @@ function borrar(e){
     
     if(confirm("¿Seguro que quieres borrar esta invitación?")){
         
-        elemento.setAttribute("id", "removing");
-        document.getElementById("invitedList").removeChild(document.getElementById("removing"));
+        elemento.remove();
         
     }
     
