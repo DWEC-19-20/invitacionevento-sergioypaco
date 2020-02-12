@@ -1,36 +1,15 @@
-window.addEventListener("load", inicio);
-
-// Variables globales
-
-var ocultos = false;
-var editando = false;
-
 //  Cargar eventos en la página si existen
-
+window.addEventListener("load", inicio);
 function inicio(){
     
     document.getElementById("invitar").addEventListener("click", addInv);
     document.getElementById("ocultar").addEventListener("click", ocultar);
-    
-    for(let c = 0 ; c < document.getElementsByClassName("borrar").length ; c++){
-        
-        document.getElementsByClassName("borrar")[c].addEventListener("click", borrar);
-        
-    }
-
-    for(let c = 0 ; c < document.getElementsByClassName("editar").length ; c++){
-        
-        document.getElementsByClassName("editar")[c].addEventListener("click", editar);
-        
-    }
-
-    for(let c = 0 ; c < document.getElementsByClassName("confirmar").length ; c++){
-        
-        document.getElementsByClassName("confirmar")[c].addEventListener("click", confirmado);
-        
-    }
-    
+   
 }
+// Variables globales
+
+var ocultos = false;
+var editando = false;
 
 // Añadir invitado
 
@@ -40,12 +19,12 @@ function addInv(e){
  
     var invitado = document.getElementById("invitado");
 
-    if(comprobarValido(invitado.value)){
+    if(comprobarValido(invitado.value.trim())){
         
         var nuevo = document.createElement("li");
         var nombre = document.createElement("span");
     
-        nombre.innerHTML = document.getElementById("invitado").value;
+        nombre.innerHTML = document.getElementById("invitado").value.trim();
         nuevo.appendChild(nombre);
         invitado.value = "";
 
@@ -166,27 +145,24 @@ function ocultar(){
 function editar(e){
     
     var boton = e.target;
-    var elemento = boton.parentElement.getElementsByTagName("span")[0];
+    var elemento = boton.parentElement.firstChild;
 
     editando = true;
     
     elemento.setAttribute("contentEditable", true);
     elemento.focus();   
     
-    boton.innerHTML = "HAZ CLICK EN CUALQUIER PARTE PARA GUARDAR";
+    boton.innerHTML = "Guardar";
     
-    elemento.addEventListener("blur", a);
+    boton.addEventListener("click", aceptar);
 }
 
-function a(e) {
-    var elemento = e.target;
-    quitarBlur(elemento);
-    elemento.removeEventListener("blur", a);
-}
-
-function quitarBlur(elemento){
+function aceptar(e) {
     
-    if(comprobarValido(elemento.innerHTML)) {
+    var boton = e.target;
+    var elemento = boton.parentElement.firstChild;
+    
+    if(comprobarValido(elemento.innerHTML.trim())) {
         
         elemento.setAttribute("contentEditable", false);
         elemento.parentElement.getElementsByClassName('editar')[0].innerHTML = "edit";
@@ -196,6 +172,7 @@ function quitarBlur(elemento){
 
     else elemento.focus();
     
+    boton.removeEventListener("click", aceptar);
 }
 
 // Borrar invitado
