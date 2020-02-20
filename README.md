@@ -21,3 +21,10 @@ Completa todas las historias utilizando DOM
 1) Cómo Administrador del evento me confirme antes de borrar un invitado al evento para evitar cometer un error
 1) Cómo Administrador del evento querría que no se pudiera repetir el nombre de un invitado al evento ni añadir nombres vacios para evitar errores
 
+Pruebas Manuales
+
+*Comprobacion de nombres vacios, al añadir y editar.
+*Comprobación de nombres existentes, al añadir y editar.
+*Comprobación de los checked.
+*Comprobacion filtro checked
+*Comprobación eliminar, con confirmación.
