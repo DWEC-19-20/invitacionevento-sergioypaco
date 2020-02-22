@@ -23,8 +23,8 @@ Completa todas las historias utilizando DOM
 
 Pruebas Manuales
 
-1)Comprobacion de nombres vacios, al añadir y editar.
-1)Comprobación de nombres existentes, al añadir y editar.
-1)Comprobación de los checked.
-1)Comprobacion filtro checked
-1)Comprobación eliminar, con confirmación.
+* Comprobacion de nombres vacios, al añadir y editar.
+* Comprobación de nombres existentes, al añadir y editar.
+* Comprobación de los checked.
+* Comprobacion filtro checked
+* Comprobación eliminar, con confirmación.
